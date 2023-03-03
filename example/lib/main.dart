@@ -1,3 +1,5 @@
+import 'package:mixpanel_flutter/mixpanel_flutter.dart';
+
 import 'event.dart';
 import 'gdpr.dart';
 import 'group.dart';
@@ -6,7 +8,14 @@ import 'package:flutter/material.dart';
 import 'package:mixpanel_flutter_example/widget.dart';
 
 // This is the main page only, check out the example app in https://github.com/mixpanel/mixpanel-flutter/tree/main/example
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Mixpanel.init(
+    'd9d0b84e0a2737e2557ec0d67d7ce447',
+    optOutTrackingDefault: false,
+    trackAutomaticEvents: true,
+  );
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
     initialRoute: '/',
