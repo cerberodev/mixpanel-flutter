@@ -9,18 +9,7 @@ class GDPRScreen extends StatefulWidget {
 }
 
 class _GDPRScreenState extends State<GDPRScreen> {
-  late final Mixpanel _mixpanel;
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    _initMixpanel();
-  }
-
-  Future<void> _initMixpanel() async {
-    _mixpanel = await MixpanelManager.init();
-  }
+  final Mixpanel _mixpanel = Mixpanel.instance;
 
   void showAlertDialog(BuildContext context, bool? result) {
     Widget okButton = TextButton(
