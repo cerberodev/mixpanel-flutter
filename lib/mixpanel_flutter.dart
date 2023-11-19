@@ -10,7 +10,7 @@ class Mixpanel {
   static const MethodChannel _channel = const MethodChannel(
       'mixpanel_flutter', StandardMethodCodec(MixpanelMessageCodec()));
   static Map<String, String> _mixpanelProperties = {
-    '\$lib_version': '2.0.0',
+    '\$lib_version': '2.2.0',
     'mp_lib': 'flutter',
   };
 
@@ -116,7 +116,8 @@ class Mixpanel {
     return await _channel.invokeMethod<bool>('hasOptedOutTracking');
   }
 
-  /// Use this method to opt-in an already opted-out user from tracking. People updates and track
+  /// Use this method to n
+  /// opt-in an already opted-out user from tracking. People updates and track
   /// calls will be sent to Mixpanel after using this method.
   /// This method will internally track an opt-in event to your project.
   void optInTracking() {
@@ -130,6 +131,15 @@ class Mixpanel {
   /// This method will also remove any user-related information from the device.
   void optOutTracking() {
     _channel.invokeMethod<void>('optOutTracking');
+  }
+
+  /// Set the number of events sent in a single network request to the Mixpanel server.
+  /// By configuring this value, you can optimize network usage and manage the frequency of communication between the client
+  /// and the server. The maximum size is 50; any value over 50 will default to 50.
+  /// * [flushBatchSize] an int representing the number of events sent in a single network request.
+  void setFlushBatchSize(int flushBatchSize) {
+    _channel.invokeMethod<void>('setFlushBatchSize',
+        <String, dynamic>{'flushBatchSize': flushBatchSize});
   }
 
   /// Associate all future calls to track() with the user identified by
